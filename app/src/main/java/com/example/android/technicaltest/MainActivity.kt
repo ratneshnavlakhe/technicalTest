@@ -1,5 +1,6 @@
 package com.example.android.technicaltest
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         dataList.adapter = adapter
     }
 
+    @SuppressLint("CheckResult")
     private fun getDataList() {
         usecase.getDataList()
             .subscribeOn(Schedulers.io())

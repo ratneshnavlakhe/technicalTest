@@ -31,7 +31,7 @@ class DataAdapter(private val list: List<DataEntity>) :
             this.data = data
             view.firstName.text = data.firstName
             view.lastName.text = data.lastName
-            view.title.text = data.title
+            view.userTitle.text = data.title
             Picasso.with(view.context).load(data.picture).into(view.profilePic)
         }
 

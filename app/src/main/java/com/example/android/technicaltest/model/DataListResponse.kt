@@ -7,7 +7,7 @@ data class DataListResponse(
     val data: List<DataListEntity>
 )
 
-data class DataListEntity (
+data class DataListEntity(
     @SerializedName("title")
     val title: String,
     @SerializedName("firstName")

@@ -5,10 +5,10 @@ import com.example.android.technicaltest.MainActivity
 import dagger.Component
 
 @Component(modules = [DataModule::class])
-interface ApplicationComponent {
+interface AppComponent {
     fun inject(activity: MainActivity)
 }
 
-class MyApplication: Application() {
-    val appComponent = DaggerApplicationComponent.create()
+class MyApplication : Application() {
+    val appComponent: AppComponent = DaggerAppComponent.create()
 }

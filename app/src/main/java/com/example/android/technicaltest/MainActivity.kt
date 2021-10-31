@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showError() {
-        // no - op
+        // no-op
     }
 
     private fun showList(it: List<DataEntity>) {

@@ -2,6 +2,7 @@ package com.example.android.technicaltest
 
 import com.example.android.technicaltest.model.DataEntity
 import com.example.android.technicaltest.model.DataListResponse
+import com.example.android.technicaltest.model.User
 import com.example.android.technicaltest.testUtil.Rx2SchedulersOverrideRule
 import io.reactivex.Single
 import org.junit.Rule
@@ -58,5 +59,22 @@ class DataUsecaseImplTest {
 
 
         verify(repo).getDataList()
+    }
+
+    @Test
+    fun `should get the user with the provided user id`() {
+        val userId = "test"
+        val response = mock(User::class.java)
+
+        `when`(repo.getUser(userId)).thenReturn(Single.just(response))
+
+        usecase.getUser(userId)
+            .test()
+            .assertValue {
+                it == response
+            }
+            .assertComplete()
+
+        verify(repo).getUser(userId)
     }
 }

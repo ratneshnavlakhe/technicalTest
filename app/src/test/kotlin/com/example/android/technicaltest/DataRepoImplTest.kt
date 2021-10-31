@@ -1,11 +1,12 @@
 package com.example.android.technicaltest
 
 import com.example.android.technicaltest.model.DataListResponse
+import com.example.android.technicaltest.model.User
 import com.example.android.technicaltest.testUtil.Rx2SchedulersOverrideRule
 import io.reactivex.Single
 import okhttp3.MediaType
 import okhttp3.ResponseBody
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -54,7 +55,7 @@ class DataRepoImplTest {
             .test()
             .assertComplete()
             .assertValue {
-                Assert.assertEquals(response.data.size, it.data.size)
+                assertEquals(response.data.size, it.data.size)
                 true
             }
 
@@ -73,6 +74,43 @@ class DataRepoImplTest {
                 it is HttpException
                 true
             }
+
+        verify(endpoint).getDataList()
+    }
+
+    @Test
+    fun `should return user data with provided user id`() {
+        val userId = "test"
+        val user = mock(User::class.java)
+
+        `when`(endpoint.getUser(userId)).thenReturn(Single.just(user))
+        `when`(user.id).thenReturn(userId)
+
+        repo.getUser(userId)
+            .test()
+            .assertComplete()
+            .assertValue {
+                assertEquals(it.id, userId)
+                true
+            }
+
+        verify(endpoint).getUser(userId)
+    }
+
+    @Test
+    fun `should return error response if user call returns error from remote`() {
+        val userId = "test"
+        `when`(endpoint.getUser(userId)).thenReturn(Single.error(Throwable()))
+
+        repo.getUser(userId)
+            .test()
+            .assertNotComplete()
+            .assertError {
+                it is HttpException
+                true
+            }
+
+        verify(endpoint).getUser(userId)
     }
 
     private fun prepareErrorResponse(): HttpException {

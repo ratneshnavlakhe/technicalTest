@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.technicaltest.di.MyApplication
-import com.example.android.technicaltest.model.DataListEntity
+import com.example.android.technicaltest.model.DataEntity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         // no - op
     }
 
-    private fun showList(it: List<DataListEntity>) {
+    private fun showList(it: List<DataEntity>) {
         adapter = DataAdapter(it)
         dataList.adapter = adapter
     }

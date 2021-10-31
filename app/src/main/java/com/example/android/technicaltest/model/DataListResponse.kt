@@ -4,10 +4,12 @@ import com.google.gson.annotations.SerializedName
 
 data class DataListResponse(
     @SerializedName("data")
-    val data: List<DataListEntity>
+    val data: List<DataEntity>
 )
 
-data class DataListEntity(
+data class DataEntity(
+    @SerializedName("id")
+    val id: String,
     @SerializedName("title")
     val title: String,
     @SerializedName("firstName")

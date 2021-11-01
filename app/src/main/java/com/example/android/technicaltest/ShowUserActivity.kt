@@ -43,11 +43,14 @@ class ShowUserActivity : AppCompatActivity() {
                 hideLayout()
             }
             .subscribe({
-                Log.i("ShowDataActivity", it.toString())
                 showUserData(it)
             }, {
-                Log.e("ShowDataActivity", "no data from data list")
+                showError()
             })
+    }
+
+    private fun showError() {
+        Log.e("ShowDataActivity", "no user available with this user id")
     }
 
     private fun hideLayout() {
@@ -75,7 +78,12 @@ class ShowUserActivity : AppCompatActivity() {
         dateOfBirthValue.text = user.dateOfBirth
         phoneValue.text = user.phone
         emailValue.text = user.email
-        Picasso.with(this).load(user.picture).into(profilePic)
+        Picasso
+            .with(this)
+            .load(user.picture)
+            .resize(170, 170)
+            .centerCrop()
+            .into(profilePic)
     }
 
 

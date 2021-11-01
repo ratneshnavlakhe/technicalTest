@@ -36,7 +36,12 @@ class UserListAdapter(private val list: List<DataEntity>) :
                 data.firstName,
                 data.lastName
             )
-            Picasso.with(view.context).load(data.picture).into(view.profilePic)
+            Picasso
+                .with(view.context)
+                .load(data.picture)
+                .resize(170, 170)
+                .centerCrop()
+                .into(view.profilePic)
         }
 
         init {

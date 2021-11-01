@@ -3,6 +3,8 @@ package com.example.android.technicaltest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.technicaltest.di.MyApplication
 import com.example.android.technicaltest.model.User
@@ -35,6 +37,11 @@ class ShowUserActivity : AppCompatActivity() {
         usecase.getUser(selectedUser)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnEvent { _, _ -> hideLoader() }
+            .doOnSubscribe {
+                showLoader()
+                hideLayout()
+            }
             .subscribe({
                 Log.i("ShowDataActivity", it.toString())
                 showUserData(it)
@@ -43,7 +50,21 @@ class ShowUserActivity : AppCompatActivity() {
             })
     }
 
+    private fun hideLayout() {
+        userDataContent.visibility = View.INVISIBLE
+    }
+
+    private fun showLoader() {
+        progressBar.visibility = ProgressBar.VISIBLE
+    }
+
+    private fun hideLoader() {
+        progressBar.visibility = ProgressBar.INVISIBLE
+    }
+
     private fun showUserData(user: User) {
+        userDataContent.visibility = View.VISIBLE
+
         name.text = getString(
             R.string.name,
             user.firstName,
@@ -56,6 +77,7 @@ class ShowUserActivity : AppCompatActivity() {
         emailValue.text = user.email
         Picasso.with(this).load(user.picture).into(profilePic)
     }
+
 
     companion object {
         private val USER_KEY = "USER_ID"

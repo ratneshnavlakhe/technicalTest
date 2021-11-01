@@ -2,7 +2,7 @@ package com.example.android.technicaltest.model
 
 import com.google.gson.annotations.SerializedName
 
-data class DataListResponse(
+data class UserListResponse(
     @SerializedName("data")
     val data: List<DataEntity>
 )
@@ -35,7 +35,7 @@ data class User(
     val gender: String,
     @SerializedName("email")
     val email: String,
-    @SerializedName("dataOfBirth")
+    @SerializedName("dateOfBirth")
     val dateOfBirth: String,
     @SerializedName("phone")
     val phone: String

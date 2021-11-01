@@ -1,20 +1,20 @@
 package com.example.android.technicaltest
 
-import com.example.android.technicaltest.model.DataListResponse
 import com.example.android.technicaltest.model.User
+import com.example.android.technicaltest.model.UserListResponse
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 interface DataRepo {
-    fun getDataList(): Single<DataListResponse>
+    fun getDataList(): Single<UserListResponse>
     fun getUser(userId: String): Single<User>
 }
 
 class DataRepoImpl(
-    private val endpoint: DataEndpoint,
+    private val endpoint: UserEndpoint,
 ) : DataRepo {
-    override fun getDataList(): Single<DataListResponse> {
-        return endpoint.getDataList()
+    override fun getDataList(): Single<UserListResponse> {
+        return endpoint.getUserList()
             .subscribeOn(Schedulers.io())
     }
 

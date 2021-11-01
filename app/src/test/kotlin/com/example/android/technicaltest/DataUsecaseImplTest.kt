@@ -1,8 +1,8 @@
 package com.example.android.technicaltest
 
 import com.example.android.technicaltest.model.DataEntity
-import com.example.android.technicaltest.model.DataListResponse
 import com.example.android.technicaltest.model.User
+import com.example.android.technicaltest.model.UserListResponse
 import com.example.android.technicaltest.testUtil.Rx2SchedulersOverrideRule
 import io.reactivex.Single
 import org.junit.Rule
@@ -28,7 +28,7 @@ class DataUsecaseImplTest {
 
     @Test
     fun `should return data list`() {
-        val response = mock(DataListResponse::class.java)
+        val response = mock(UserListResponse::class.java)
         val dataList = mock(DataEntity::class.java)
 
         `when`(repo.getDataList()).thenReturn(Single.just(response))
@@ -46,7 +46,7 @@ class DataUsecaseImplTest {
 
     @Test
     fun `should return empty data list`() {
-        val response = mock(DataListResponse::class.java)
+        val response = mock(UserListResponse::class.java)
 
         `when`(repo.getDataList()).thenReturn(Single.just(response))
 

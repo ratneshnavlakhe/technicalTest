@@ -3,29 +3,30 @@ package com.example.android.technicaltest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.technicaltest.di.MyApplication
 import com.example.android.technicaltest.model.DataEntity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_user_list.*
 import javax.inject.Inject
 
 
-class MainActivity : AppCompatActivity() {
+class UserListActivity : AppCompatActivity() {
 
     @Inject
     lateinit var usecase: DataUsecase
 
     private lateinit var linerLayoutManager: LinearLayoutManager
-    private lateinit var adapter: DataAdapter
+    private lateinit var adapter: UserListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as MyApplication).appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_user_list)
 
         linerLayoutManager = LinearLayoutManager(this)
         dataList.layoutManager = linerLayoutManager
@@ -34,19 +35,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showLoader() {
-        // no-op
+        progressBar.visibility = ProgressBar.VISIBLE
     }
 
     private fun hideLoader() {
-        // no-op
+        progressBar.visibility = ProgressBar.INVISIBLE
     }
 
     private fun showError() {
-        // no-op
+        Log.e("MainActivity", "no data from data list")
     }
 
     private fun showList(it: List<DataEntity>) {
-        adapter = DataAdapter(it)
+        adapter = UserListAdapter(it)
         dataList.adapter = adapter
     }
 
@@ -58,11 +59,9 @@ class MainActivity : AppCompatActivity() {
             .doOnEvent { _, _ -> hideLoader() }
             .doOnSubscribe { showLoader() }
             .subscribe({
-                Log.i("MainActivity", it.toString())
                 showList(it)
             }, {
                 showError()
-                Log.e("MainActivity", "no data from data list")
             })
     }
 }

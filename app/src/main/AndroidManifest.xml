@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.technicaltest">
     <!-- Internet Permission -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,10 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TechnicalTest">
         <activity
-            android:name=".ShowDataActivity"
+            android:name=".ShowUserActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".UserListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

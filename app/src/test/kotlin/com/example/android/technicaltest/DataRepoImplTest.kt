@@ -1,7 +1,7 @@
 package com.example.android.technicaltest
 
-import com.example.android.technicaltest.model.DataListResponse
 import com.example.android.technicaltest.model.User
+import com.example.android.technicaltest.model.UserListResponse
 import com.example.android.technicaltest.testUtil.Rx2SchedulersOverrideRule
 import io.reactivex.Single
 import okhttp3.MediaType
@@ -25,30 +25,30 @@ class DataRepoImplTest {
     val rx2SchedulersOverrideRule = Rx2SchedulersOverrideRule()
 
     @Mock
-    private lateinit var endpoint: DataEndpoint
+    private lateinit var endpoint: UserEndpoint
 
     @InjectMocks
     private lateinit var repo: DataRepoImpl
 
     @Test
     fun `should return data response from remote`() {
-        val response = mock(DataListResponse::class.java)
+        val response = mock(UserListResponse::class.java)
 
-        `when`(endpoint.getDataList()).thenReturn(Single.just(response))
+        `when`(endpoint.getUserList()).thenReturn(Single.just(response))
 
         repo.getDataList()
             .test()
             .assertComplete()
             .assertResult(response)
 
-        verify(endpoint).getDataList()
+        verify(endpoint).getUserList()
     }
 
     @Test
     fun `should return empty response if data list is empty from remote`() {
-        val response = mock(DataListResponse::class.java)
+        val response = mock(UserListResponse::class.java)
 
-        `when`(endpoint.getDataList()).thenReturn(Single.just(response))
+        `when`(endpoint.getUserList()).thenReturn(Single.just(response))
         `when`(response.data).thenReturn(listOf())
 
         repo.getDataList()
@@ -59,13 +59,13 @@ class DataRepoImplTest {
                 true
             }
 
-        verify(endpoint).getDataList()
+        verify(endpoint).getUserList()
     }
 
     @Test
     fun `should return error response if data list returns error from remote`() {
 
-        `when`(endpoint.getDataList()).thenReturn(Single.error(prepareErrorResponse()))
+        `when`(endpoint.getUserList()).thenReturn(Single.error(prepareErrorResponse()))
 
         repo.getDataList()
             .test()
@@ -75,7 +75,7 @@ class DataRepoImplTest {
                 true
             }
 
-        verify(endpoint).getDataList()
+        verify(endpoint).getUserList()
     }
 
     @Test

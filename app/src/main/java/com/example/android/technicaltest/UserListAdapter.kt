@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.technicaltest.model.DataEntity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.data_list_item.view.*
+import java.util.*
 
 
-class DataAdapter(private val list: List<DataEntity>) :
-    RecyclerView.Adapter<DataAdapter.ViewHolder>() {
+class UserListAdapter(private val list: List<DataEntity>) :
+    RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflatedView = parent.inflate(R.layout.data_list_item, false)
         return ViewHolder(inflatedView)
@@ -29,9 +30,12 @@ class DataAdapter(private val list: List<DataEntity>) :
 
         fun bind(data: DataEntity) {
             this.data = data
-            view.firstName.text = data.firstName
-            view.lastName.text = data.lastName
-            view.userTitle.text = data.title
+            view.welcomeMessage.text = view.context.getString(
+                R.string.welcome_message,
+                data.title.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() },
+                data.firstName,
+                data.lastName
+            )
             Picasso.with(view.context).load(data.picture).into(view.profilePic)
         }
 
@@ -45,7 +49,7 @@ class DataAdapter(private val list: List<DataEntity>) :
 
         override fun onClick(p0: View?) {
             val context = itemView.context
-            val showDataIntent = Intent(context, ShowDataActivity::class.java)
+            val showDataIntent = Intent(context, ShowUserActivity::class.java)
             showDataIntent.putExtra(USER_KEY, data?.id)
             context.startActivity(showDataIntent)
         }

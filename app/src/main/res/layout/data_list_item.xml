@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp">
+    android:layout_margin="16dp"
+    android:background="@drawable/custom_border">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/profilePicView"
@@ -15,37 +16,20 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/profilePic"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:background="@drawable/custom_border"
             android:scaleType="center" />
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/userTitle"
+        android:id="@+id/welcomeMessage"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/profilePicView"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Some Title" />
-
-    <TextView
-        android:id="@+id/firstName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@id/userTitle"
-        app:layout_constraintTop_toBottomOf="@id/userTitle"
-        tools:text="FirstName" />
-
-    <TextView
-        android:id="@+id/lastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/firstName"
-        app:layout_constraintStart_toEndOf="@id/firstName"
-        app:layout_constraintTop_toTopOf="@id/firstName"
-        tools:text="Last Name" />
+        tools:text="Some message" />
 </androidx.constraintlayout.widget.ConstraintLayout>

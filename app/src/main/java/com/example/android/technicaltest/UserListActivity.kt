@@ -25,6 +25,11 @@ class UserListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_list)
 
+        dataList.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = UserListAdapter(null)
+        }
+
         getDataList()
     }
 

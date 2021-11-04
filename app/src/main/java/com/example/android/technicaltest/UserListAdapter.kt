@@ -1,6 +1,7 @@
 package com.example.android.technicaltest
 
 import android.content.Intent
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,19 +11,29 @@ import kotlinx.android.synthetic.main.data_list_item.view.*
 import java.util.*
 
 
-class UserListAdapter(private val list: List<DataEntity>) :
+class UserListAdapter(private val list: List<DataEntity>?) :
     RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflatedView = parent.inflate(R.layout.data_list_item, false)
-        return ViewHolder(inflatedView)
+        return ViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.data_list_item, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = list[position]
-        holder.bind(item)
+        val item = list?.get(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int {
+        if (list.isNullOrEmpty()) {
+            return 0
+        } else {
+            return list.size
+        }
+    }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
         private var view: View = v

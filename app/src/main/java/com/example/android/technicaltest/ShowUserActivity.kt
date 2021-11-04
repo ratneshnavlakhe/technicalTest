@@ -22,7 +22,7 @@ class ShowUserActivity : AppCompatActivity() {
     private lateinit var selectedUser: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MyApplication).appComponent.inject(this)
+        (applicationContext as MyApplication).appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_user)

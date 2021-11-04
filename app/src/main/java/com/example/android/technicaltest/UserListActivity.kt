@@ -20,7 +20,7 @@ class UserListActivity : AppCompatActivity() {
     lateinit var usecase: DataUsecase
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MyApplication).appComponent.inject(this)
+        (applicationContext as MyApplication).appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_list)

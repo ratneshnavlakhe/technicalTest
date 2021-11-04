@@ -19,17 +19,11 @@ class UserListActivity : AppCompatActivity() {
     @Inject
     lateinit var usecase: DataUsecase
 
-    private lateinit var linerLayoutManager: LinearLayoutManager
-    private lateinit var adapter: UserListAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as MyApplication).appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_list)
-
-        linerLayoutManager = LinearLayoutManager(this)
-        dataList.layoutManager = linerLayoutManager
 
         getDataList()
     }
@@ -47,8 +41,10 @@ class UserListActivity : AppCompatActivity() {
     }
 
     private fun showList(it: List<DataEntity>) {
-        adapter = UserListAdapter(it)
-        dataList.adapter = adapter
+        dataList.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = UserListAdapter(it)
+        }
     }
 
     @SuppressLint("CheckResult")

@@ -1,5 +1,6 @@
 package com.example.android.technicaltest.di
 
+import android.content.Context
 import com.example.android.technicaltest.*
 import com.example.android.technicaltest.network.NetworkFactory
 import dagger.Module
@@ -22,9 +23,10 @@ class DataModule {
     @Provides
     fun providesDataEndpoint(
         dependency: NetworkDependency,
-        networkFactory: NetworkFactory
+        networkFactory: NetworkFactory,
+        context: Context
     ): UserEndpoint {
-        return networkFactory.getRetrofit(dependency).create(UserEndpoint::class.java)
+        return networkFactory.getRetrofit(dependency, context).create(UserEndpoint::class.java)
     }
 
     @Provides

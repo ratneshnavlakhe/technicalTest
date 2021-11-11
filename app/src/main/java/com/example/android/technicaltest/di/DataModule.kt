@@ -3,6 +3,8 @@ package com.example.android.technicaltest.di
 import android.content.Context
 import com.example.android.technicaltest.*
 import com.example.android.technicaltest.network.NetworkFactory
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 
@@ -24,10 +26,15 @@ class DataModule {
     fun providesDataEndpoint(
         dependency: NetworkDependency,
         networkFactory: NetworkFactory,
-        context: Context
+        context: Context,
+        gson: Gson
     ): UserEndpoint {
-        return networkFactory.getRetrofit(dependency, context).create(UserEndpoint::class.java)
+        return networkFactory.getRetrofit(dependency, context, gson)
+            .create(UserEndpoint::class.java)
     }
+
+    @Provides
+    fun providesGson() = GsonBuilder().setLenient().create()
 
     @Provides
     fun providesNetworkFactory(): NetworkFactory = NetworkFactory()

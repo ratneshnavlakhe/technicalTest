@@ -13,9 +13,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class NetworkFactory {
-    fun getRetrofit(dependency: NetworkDependency, context: Context): Retrofit {
+    fun getRetrofit(dependency: NetworkDependency, context: Context, gson: Gson): Retrofit {
         return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(Gson()))
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(dependency.getBaseUrl())
             .client(getInterceptor(context))
